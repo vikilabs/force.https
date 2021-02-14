@@ -2,8 +2,8 @@
 
 ### USAGE
 
-	- wget ;chmod 777 ; ./force_https <domain_name>
+	- wget https://raw.githubusercontent.com/vikilabs/force_https/master/force_https; chmod 777 force_https; ./force_https <domain_name>
 	
 ### EXAMPLE
 	
-	- wget ;chmod 777 ; ./force_https example.com
+	- wget https://raw.githubusercontent.com/vikilabs/force_https/master/force_https; chmod 777 force_https; ./force_https example.com

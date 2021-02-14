@@ -1,0 +1,57 @@
+# UTILITY TO ENABLE, FORCE HTTP -> HTTPS redirection
+#
+#
+#		AUTHOR	: VIKI (a) VIGNESH NATARAJAN
+#		CONTACT	: VIKILABS.ORG
+#
+
+if [ -z $1 ]; then 
+	echo "feed: domain name"
+	exit 1
+fi
+
+DOMAIN_NAME=$1
+FLAG=0
+
+if [ -f "index.php" ]; then
+	FLAG=1
+fi
+
+if [ -f "index.html" ]; then
+	FLAG=1
+fi
+
+if [ -f "index.htm" ]; then
+	FLAG=1
+fi
+
+if [ -f "index.jsp" ]; then
+	FLAG=1
+fi
+
+if [ -f "index.asp" ]; then
+	FLAG=1
+fi
+
+
+if [ $FLAG -ne 1 ]; then
+	echo "usage_error: this command should be run at the base directory of the website"
+	echo
+	echo "usage_error: generally base directory contains any of the following files,"
+	echo
+	echo " 1. index.html "
+	echo " 2. index.php"
+	echo " 3. index.htm"
+	echo " 4. index.jsp"
+	echo " 5. index.asp"
+	echo
+	exit 1
+fi
+
+cat > .htaccess << EOF
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://$DOMAIN_NAME/\$1 [R,L]
+EOF
+
+echo "FORCE HTTP to HTTPS activated for $DOMAIN_NAME"
